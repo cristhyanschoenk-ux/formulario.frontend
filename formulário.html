@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact form</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(120deg, #0b7d91 0%, #1ea9ba 45%, #35c3cc 100%);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .decor {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .decor span {
+      position: absolute;
+      display: block;
+      border-radius: 999px;
+      transform: rotate(-35deg);
+      opacity: 0.75;
+    }
+
+    .s1 { width: 220px; height: 38px; background: #c7d84a; right: -40px; top: 18%; }
+    .s2 { width: 260px; height: 38px; background: #ef4e6a; right: -80px; top: 31%; }
+    .s3 { width: 170px; height: 38px; background: #36b9d6; right: 40px; top: 40%; }
+    .s4 { width: 210px; height: 38px; background: #f2e35c; right: -50px; top: 52%; }
+    .s5 { width: 240px; height: 38px; background: #58c9bf; right: 100px; top: 62%; }
+    .s6 { width: 150px; height: 38px; background: #e85d75; right: -20px; top: 74%; }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: min(1100px, 100%);
+    }
+
+    .contact {
+      width: min(650px, 100%);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 34px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    .subtitle {
+      margin: 0 0 32px;
+      font-size: 13px;
+      opacity: 0.9;
+    }
+
+    form {
+      width: 100%;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 160px minmax(0, 1fr);
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .form-row > label,
+    .label-like {
+      font-size: 12px;
+      line-height: 1.2;
+      color: #fff;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border: 0;
+      border-radius: 3px;
+      padding: 10px 12px;
+      font: inherit;
+      font-size: 13px;
+      color: #333;
+      background: #fff;
+      outline: none;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #9a9a9a;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.55);
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .phone-fields {
+      display: grid;
+      grid-template-columns: 80px 80px minmax(0, 1fr);
+      gap: 10px;
+    }
+
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .verification-row {
+      align-items: center;
+    }
+
+    .captcha {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      color: #333;
+      border-radius: 3px;
+      padding: 8px 10px;
+      width: fit-content;
+      min-width: 250px;
+    }
+
+    .captcha input {
+      width: 18px;
+      height: 18px;
+      margin: 0;
+    }
+
+    .captcha label {
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .recaptcha {
+      margin-left: auto;
+      font-size: 9px;
+      color: #777;
+      border-left: 1px solid #ddd;
+      padding-left: 10px;
+    }
+
+    button {
+      margin-top: 20px;
+      background: transparent;
+      color: #fff;
+      border: 2px solid #fff;
+      border-radius: 4px;
+      padding: 10px 22px;
+      font-size: 12px;
+      letter-spacing: 0.8px;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+
+    button:hover,
+    button:focus {
+      background: #fff;
+      color: #147f91;
+    }
+
+    @media (max-width: 700px) {
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+
+      .split,
+      .phone-fields {
+        grid-template-columns: 1fr;
+      }
+
+      .captcha {
+        min-width: 0;
+        width: 100%;
+      }
+
+      .decor {
+        opacity: 0.35;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="decor" aria-hidden="true">
+    <span class="s1"></span>
+    <span class="s2"></span>
+    <span class="s3"></span>
+    <span class="s4"></span>
+    <span class="s5"></span>
+    <span class="s6"></span>
+  </div>
+
+  <main class="page">
+    <section class="contact">
+      <h1>Contact form</h1>
+      <p class="subtitle">
+        Please fill in your information and we'll be sending your order in no time.
+      </p>
+
+      <form action="#" method="post">
+        <div class="form-row">
+          <label for="firstName">Your Name*</label>
+          <div class="split">
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              placeholder="First Name"
+              autocomplete="given-name"
+              required
+            >
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              placeholder="Last Name"
+              aria-label="Last Name"
+              autocomplete="family-name"
+              required
+            >
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="email">Your Email*</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="example@example.com"
+            autocomplete="email"
+            required
+          >
+        </div>
+
+        <div class="form-row">
+          <label for="phone">Phone*</label>
+          <div class="phone-fields">
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              placeholder="DDD"
+              autocomplete="tel-area-code"
+              required
+            >
+            <input
+              type="tel"
+              id="phonePart2"
+              name="phonePart2"
+              placeholder="0000"
+              aria-label="Primeira parte do telefone"
+              required
+            >
+            <input
+              type="tel"
+              id="phonePart3"
+              name="phonePart3"
+              placeholder="0000"
+              aria-label="Segunda parte do telefone"
+              required
+            >
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="subject">Message Subject*</label>
+          <select id="subject" name="subject" required>
+            <option value="other">Other</option>
+            <option value="support">Support</option>
+            <option value="sales">Sales</option>
+            <option value="billing">Billing</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label for="message">Message*</label>
+          <textarea
+            id="message"
+            name="message"
+            placeholder="Digite sua mensagem"
+            required
+          ></textarea>
+        </div>
+
+        <div class="form-row verification-row">
+          <span class="label-like" id="verificationLabel">Verification*</span>
+          <div class="captcha" role="group" aria-labelledby="verificationLabel">
+            <input type="checkbox" id="notRobot" name="notRobot" required>
+            <label for="notRobot">I'm not a robot</label>
+            <span class="recaptcha" aria-hidden="true">reCAPTCHA</span>
+          </div>
+        </div>
+
+        <button type="submit">Submit Form</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
